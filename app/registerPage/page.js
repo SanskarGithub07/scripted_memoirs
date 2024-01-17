@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router = useRouter();
   const [info, setInfo] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
@@ -33,6 +35,7 @@ const Register = () => {
         setPending(false);
         const form = e.target;
         form.reset();
+        router.push("/loginPage");
         console.log("user registered");
       }
       else{
@@ -72,8 +75,8 @@ const Register = () => {
         </div>
 
         {error && <span className="message bg-[#B85C38] text-[#E0C097] p-4">{error}</span>}
-        <button className="w-1/2 p-4 m-auto rounded-lg bg-[#5C3D2E] text-[#E0C097] hover:bg-[#B85C38]">
-            Submit
+        <button className="w-1/2 p-4 m-auto rounded-lg bg-[#5C3D2E] text-[#E0C097] hover:bg-[#B85C38]" disabled={pending ? true : false}>
+            {pending ? "Registering" : "Registered"}
         </button>
 
         <h1 className="text-[#E0C097] text-center mt-4">Already have an account ? <span className="text-[#B85C38] font-bold mx-1"><Link href="/loginPage">Login</Link></span></h1>
